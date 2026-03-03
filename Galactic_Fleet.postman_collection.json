@@ -1,0 +1,344 @@
+{
+    "info": {
+        "_postman_id": "a1b2c3d4-e5f6-7890-1234-abcdef123456",
+        "name": "Galactic Fleet Command API",
+        "description": "API para el examen de recuperación de Angular. ¡Recuerda que no hay envoltorios de datos en las respuestas!",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. Autenticación (Auth)",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if(pm.response.code === 200) {",
+                                    "    pm.collectionVariables.set(\"token\", pm.response.json().token);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"codeName\": \"Admin\",\n  \"password\": \"123456\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Perfil Activo (Active Profile)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/auth/active-profile",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "auth",
+                                "active-profile"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. Validación Asíncrona",
+            "item": [
+                {
+                    "name": "Check Registration Code",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/spaceships/check-registration?code=SYS-001",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships",
+                                "check-registration"
+                            ],
+                            "query": [
+                                {
+                                    "key": "code",
+                                    "value": "SYS-001"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. Naves Espaciales (Spaceships)",
+            "item": [
+                {
+                    "name": "Get All Spaceships",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/spaceships",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get One Spaceship",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/spaceships/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Spaceship",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"registrationCode\": \"SYS-999\",\n  \"name\": \"Apolo\",\n  \"class\": \"Carguero\",\n  \"status\": \"OPERATIONAL\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/spaceships",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Spaceship",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"registrationCode\": \"SYS-001\",\n  \"name\": \"Vanguardia\",\n  \"class\": \"Crucero Pesado\",\n  \"status\": \"MAINTENANCE\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/spaceships/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Spaceship",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/spaceships/2",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "spaceships",
+                                "2"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. Tripulación (Crew)",
+            "item": [
+                {
+                    "name": "Get All Crew",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/crew",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crew"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get One Crew Member",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/crew/1",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crew",
+                                "1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Crew Member",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Piloto Dameron\",\n  \"rank\": \"Commander\",\n  \"spaceshipId\": 1\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/crew",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crew"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Crew Member",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/crew/3",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "crew",
+                                "3"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:4000",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}
