@@ -12,8 +12,8 @@ const SECRET_KEY = 'super_secret_fleet_key_2024';
 // 💾 BASE DE DATOS EN MEMORIA (Se resetea al reiniciar)
 // ==========================================
 let spaceships = [
-    { id: 1, registrationCode: 'SYS-001', name: 'Vanguardia', class: 'Crucero', status: 'OPERATIONAL' },
-    { id: 2, registrationCode: 'SYS-042', name: 'Nebula', class: 'Exploración', status: 'MAINTENANCE' }
+    { id: 1, registrationCode: 'SYS-001', name: 'Vanguardia', class: 'Crucero', status: 'OPERATIONAL', commissionDate: '2026-01-15', lastMaintenanceDate: '2026-03-01' },
+    { id: 2, registrationCode: 'SYS-042', name: 'Nebula', class: 'Exploración', status: 'MAINTENANCE', commissionDate: '2026-01-20', lastMaintenanceDate: '2026-02-15' }
 ];
 
 let crewMembers = [
